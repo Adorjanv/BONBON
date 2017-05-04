@@ -1,0 +1,1646 @@
+﻿<xs:schema xmlns:tns="http://www.roshen.ua/edi/roshen4" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.roshen.ua/edi/roshen4" attributeFormDefault="unqualified"
+           elementFormDefault="qualified">
+    <xs:element name="ExchangeMessage" type="tns:ExchangeMessage">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">
+                Корневой элемент документа
+            </xs:documentation>
+            <xs:documentation xml:lang="en">
+                Document root node
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="ExchangeMessage">
+        <xs:sequence>
+            <xs:element name="Header" type="tns:MessageHeader">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Заголовок сообщения
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Message header
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="GoodsSales" type="tns:GoodsSales" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список продаж
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        List of sales
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="GoodsReturns" type="tns:GoodsReturns" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список возвратов
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        List of returns
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="GoodsSaleCorrections" type="tns:GoodsSaleCorrections" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список корректировок
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        List of sale corrections
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SkuList" type="tns:SkuList" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список SKU
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        List of SKU
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OwnGoodsInStock" type="tns:OwnGoodsInStockList" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список остатков (на собственных складах)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        List of goods in stock (own warehouses)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="MessageHeader">
+        <xs:sequence>
+            <xs:element name="ProtocolVersion" type="xs:string" fixed="1.20">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Версия протокола обмена
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Protocol version
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Sender" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор БД отправителя согласно классификации CUB
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Sender DB identifier according to CUB classification
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Receiver" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор БД получателя согласно классификации CUB
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Recipient DB identifier according to CUB classification
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="MessageId" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор сообщения
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Message identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ReplyToMessageId" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор последнего полученного сообщения
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Identifier of last received message
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="GoodsSales">
+        <xs:sequence>
+            <xs:element name="Sale" type="tns:GoodsSale" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GoodsReturns">
+        <xs:sequence>
+            <xs:element name="Return" type="tns:GoodsReturn" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GoodsSaleCorrections">
+        <xs:sequence>
+            <xs:element name="SaleCorrection" type="tns:GoodsSaleCorrection" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="GoodsSale">
+        <xs:sequence>
+            <xs:element name="DocumentDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата документа
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Document date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentNumber" type="tns:DocumentNumber">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Номер документа
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Document number
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentStatusCode" type="tns:DocumentStatus">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Если документ отражен в учете (сформированы проводки) то выгружать со статусом Posted, во всех остальных случаях Canceled.
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        If the document is reflected in the account (formed wiring) then unload with the status Posted, in all other cases Canceled
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InstanceIdentifier" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Уникальный идентификатор продажи (не должен дублироваться для разных документов, в т.ч. разных типов, разных лет)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Sale unique identifier (It should not be duplicated for different documents, including different types, different years)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InvoiceDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата инвойса
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Invoice date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InvoiceNumber" type="tns:DocumentNumber" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Номер инвойса
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Invoice number
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TransferOfOwnershipDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата перехода права собственности
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Date of transfer of ownership
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ExportDeclarationDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата экспортной декларации
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Export declaration date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentCurrencyCode" type="tns:CurrencyCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код валюты согласно ISO 4217
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Currency code (according to ISO 4217)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Contract" type="tns:Contract">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Договор на поставку товаров
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Contract
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SellerInfo" type="tns:SellerInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация о продавце
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Seller info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BuyerInfo" type="tns:BuyerInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация о покупателе
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Buyer info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ShipFromInfo" type="tns:ShipFromInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация об отправителе
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Sender info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ShipToInfo" type="tns:ShipToInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация о получателе
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Recipient info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Notes" type="tns:Notes" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Произвольный комментарий к документу
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Comment
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SKUList" type="tns:SaleSKUList">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список SKU продажи
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        List of SKU
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Contract">
+        <xs:sequence>
+            <xs:element name="ContractDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата договора на поставку товаров
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Contract date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ContractNumber" type="tns:DocumentNumber">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Номер договора на поставку товаров
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Contract number
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SellerInfo">
+        <xs:sequence>
+            <xs:element name="SellerCountryCode" type="tns:CountryCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код страны продавца alpha-2 согласно ISO 3166-1
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Seller country code (alpha-2 according ISO 3166-1)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SellerGLN" type="tns:GLN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор продавца
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Seller identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SellerName" type="tns:Notes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название продавца
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Seller name
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SellerWarehouseGLN" type="tns:GLN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор склада продавца
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Seller warehouse identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SellerWarehouseName" type="tns:Notes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название склада продавца
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Seller warehouse name
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BuyerInfo">
+        <xs:sequence>
+            <xs:element name="BuyerCountryCode" type="tns:CountryCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код страны покупателя alpha-2 согласно ISO 3166-1
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Buyer country code (alpha-2 according ISO 3166-1)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BuyerGLN" type="tns:GLN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор покупателя
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Buyer identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BuyerName" type="tns:Notes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название покупателя
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Buyer name
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BuyerWarehouseGLN" type="tns:GLN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор склада покупателя
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Buyer warehouse identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BuyerWarehouseName" type="tns:Notes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название склада покупателя
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Buyer warehouse name
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ShipFromInfo">
+        <xs:sequence>
+            <xs:element name="ShippingDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата отгрузки товаров со склада
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Shipping date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ShipToInfo">
+        <xs:sequence>
+            <xs:element name="DeliveryDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата приема груза получателем
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Delivery date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SaleSKUList">
+        <xs:sequence>
+            <xs:element name="SaleSkuItem" type="tns:SaleSkuItem" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Sku продажи
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Sale SKU
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SaleSkuItem">
+        <xs:sequence>
+            <xs:element name="SkuSourceIdentifier" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор SKU согласно настройки КУБ (Маркетинговый код, штрихкод ящика, код источника)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU identifier according to CUB setting (Marketing code, barcode of the box, source code)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Quantity" type="tns:Quantity">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Количество товара в БАЗОВОЙ единице измерения (КГ/ШТ)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Quantity of BASE units (KG/PCS)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TotalSkuAmountBeforeTaxes" type="tns:Amount">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Итоговая стоимость товара без учета налогов, без транспортных и маркетинговых затрат и без прочих дополнительных расходов
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Total value of the goods without taxes, without transport and marketing costs and without other additional costs
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="GoodsReturn">
+        <xs:sequence>
+            <xs:element name="DocumentDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата документа
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Document date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentNumber" type="tns:DocumentNumber">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Номер документа
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Document number
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentStatusCode" type="tns:DocumentStatus">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Если документ отражен в учете (сформированы проводки) то выгружать со статусом Posted, во всех остальных случаях Canceled.
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        If the document is reflected in the account (formed wiring) then unload with the status Posted, in all other cases Canceled
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InstanceIdentifier" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Уникальный идентификатор возврата (не должен дублироваться для разных документов, в т.ч. разных типов, разных лет)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Return unique identifier (It should not be duplicated for different documents, including different types, different years)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SaleIdentifier" type="tns:InstanceIdentifier" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Уникальный идентификатор продажи на основе которой делается возврат (не должен дублироваться для разных документов, в т.ч. разных типов, разных лет)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Base sale document unique identifier (must not be duplicated for different documents, including various types of different years)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InvoiceDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата инвойса
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Invoice date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InvoiceNumber" type="tns:DocumentNumber" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Номер инвойса
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Invoice number
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TransferOfOwnershipDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата перехода права собственности
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Date of transfer of ownership
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ExportDeclarationDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата экспортной декларации
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Export declaration date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentCurrencyCode" type="tns:CurrencyCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код валюты согласно ISO 4217
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Currency code (according to ISO 4217)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Contract" type="tns:Contract">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Договор на поставку товаров
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Contract
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SellerInfo" type="tns:SellerInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация о продавце
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Seller info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BuyerInfo" type="tns:BuyerInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация о покупателе
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Buyer info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ShipFromInfo" type="tns:ShipFromInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация об отправители
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Sender info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ShipToInfo" type="tns:ShipToInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация о получателе
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Recipient info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Notes" type="tns:Notes" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Произвольный комментарий к документу
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Comment
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SKUList" type="tns:ReturnSKUList">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список SKU возврата
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        List of SKU
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ReturnSKUList">
+        <xs:sequence>
+            <xs:element name="SkuItem" type="tns:ReturnSkuItem" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        SKU возврата
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Return SKU
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ReturnSkuItem">
+        <xs:sequence>
+            <xs:element name="SkuSourceIdentifier" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор SKU согласно классификации источника (Отправителя)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU source identifier (as appear in Sender DB)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Quantity" type="tns:Quantity">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Количество товара в БАЗОВОЙ единице измерения
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Quantity of BASE units (KG/PCS)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TotalSkuAmountBeforeTaxes" type="tns:Amount">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Итоговая стоимость товара без учета налогов, без транспортных и маркетинговых затрат и без прочих дополнительных расходов
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Total value of the goods without taxes, without transport and marketing costs and without other additional costs
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="GoodsSaleCorrection">
+        <xs:sequence>
+            <xs:element name="DocumentDate" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата документа
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Document date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentNumber" type="tns:DocumentNumber">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Номер документа
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Document number
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentStatusCode" type="tns:DocumentStatus">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Если документ отражен в учете (сформированы проводки) то выгружать со статусом Posted, во всех остальных случаях Canceled.
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        If the document is reflected in the account (formed wiring) then unload with the status Posted, in all other cases Canceled
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InstanceIdentifier" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Уникальный идентификатор продажи (не должен дублироваться для разных документов, в т.ч. разных типов, разных лет)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Base return document unique identifier (It should not be duplicated for different documents, including different types, different years)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OriginalInstanceType" type="tns:GoodsDocumentType" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Тип основания
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Base document type
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="OriginalInstanceIdentifier" type="tns:InstanceIdentifier" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Уникальный идентификатор продажи/возврата на основе которой делается корректировка (не должен дублироваться для разных документов, в т.ч. разных типов, разных лет)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Original sale unique identifier (must not be duplicated for different documents, including various types of different years)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InvoiceDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата инвойса
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Invoice date
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InvoiceNumber" type="tns:DocumentNumber" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Номер инвойса
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Invoice number
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TransferOfOwnershipDate" type="xs:date" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата перехода права собственности
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Date of transfer of ownership
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="DocumentCurrencyCode" type="tns:CurrencyCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код валюты согласно ISO 4217
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Currency code (according to ISO 4217)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Contract" type="tns:Contract">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Договор на поставку товаров
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Contract
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SellerInfo" type="tns:SellerInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация о продавце
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Seller info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="BuyerInfo" type="tns:BuyerInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация о покупателе
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Buyer info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ShipFromInfo" type="tns:ShipFromInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация об отправители
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Sender info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ShipToInfo" type="tns:ShipToInfo">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Информация о получателе
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Recipient info
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Notes" type="tns:Notes" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Произвольный комментарий к документу
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Comment
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SKUList" type="tns:SaleCorrectionSKUList">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список SKU корректировки
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        List of SKU
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SaleCorrectionSKUList">
+        <xs:sequence>
+            <xs:element name="SkuItem" type="tns:SaleCorrectionSkuItem" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        SKU корректировки
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Correction SKU
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SaleCorrectionSkuItem">
+        <xs:sequence>
+            <xs:element name="SkuSourceIdentifier" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор SKU согласно настройки КУБ (Маркетинговый код, штрихкод ящика, код источника)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU identifier according to CUB setting (Marketing code, barcode of the box, source code)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="QuantityBeforeCorrection" type="tns:Quantity">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Количество товара в БАЗОВОЙ единице измерения ДО корректировки
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Quantity of BASE units (KG/PCS) BEFORE correction
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TotalSkuAmountBeforeTaxesBeforeCorrection" type="tns:Amount">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Итоговая стоимость товара без учета налогов, без транспортных и маркетинговых затрат и без прочих дополнительных расходов ДО корректировки
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Total value of the goods without taxes, without transport and marketing costs and without other additional costs BEFORE correction
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="QuantityAfterCorrection" type="tns:Quantity">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Количество товара в БАЗОВОЙ единице измерения ПОСЛЕ корректировки
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Quantity of BASE units (KG/PCS) AFTER correction
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TotalSkuAmountBeforeTaxesAfterCorrection" type="tns:Amount">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Итоговая стоимость товара без учета налогов, без транспортных и маркетинговых затрат и без прочих дополнительных расходов ПОСЛЕ корректировки
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Total value of the goods without taxes, without transport and marketing costs and without other additional costs AFTER correction
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Sku">
+        <xs:sequence>
+            <xs:element name="SourceName" type="tns:SkuSourceName">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название SKU в учетной системе
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU name as in accounting system
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="EnglishName" type="tns:SkuLocalName">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название SKU на английском языке
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU name in English
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="AdditionalNames" type="tns:SkuNames" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дополнительные названия SKU
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Additional SKU names
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SkuIdentifier" type="tns:SkuIdentifier" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор SKU согласно классификации партнера (отправителя или получателя сообщения).
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU identifier according to the classification of the partner (the sender or recipient of the message).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SkuMarketingCode" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Маркетинговый код SKU - код SKU согласно классификации КУБ
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU marketing code, according to CUB classification
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="10"/>
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="SkuStatus" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Статус SKU. Зарезервировано.
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU status. Reserved.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SkuBaseUnitOfMeasure">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Базовая единица измерения SKU (может быть только килограмм или штука).
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU base unit of measure (only KG or PCS allowed)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="KG"/>
+                        <xs:enumeration value="PCS"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="TradeItems" type="tns:TradeItems">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список упаковок SKU. На любом этапе выгрузки должна присутствовать базовая упаковка, при выгрузке SKU готовых к отгрузке также должны присутствовать упаковки “Блок” и “Ящик”.
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        List of SKU packaging. At any time during exchange there should be a base package. For SKU which is ready for shipment, UNIT and BOX are required.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ManufacturerIdentifier" type="tns:InstanceIdentifier" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код фабрики-производителя согласно классификации CUB
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        factory-manufacturer code according to the CUB classification
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="NationalId" type="tns:SkuNationalId" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код по национальной классификации (ТНВЭД)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        National identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="InternationalId" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код товара по международному классификатору
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        International identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="IDGPC" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код продукта соответствует Global Product Classification, см. http://www.gs1.org/gsmp/kc/gpc/latest
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Product code corresponds to the Global Product Classification, see. http://www.gs1.org/gsmp/kc/gpc/latest
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ExpirationTime" type="tns:Expiration" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Срок годности (в днях)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Expiration time (days)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Notes" type="tns:Notes" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Комментарий
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Comment
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SkuNames">
+        <xs:sequence>
+            <xs:element name="LocalName" type="tns:SkuLocalizedName" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название на выбранном языке
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Name in selected language
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SkuIdentifier">
+        <xs:sequence>
+            <xs:element name="Id" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="NodeId" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код партнера согласно классификации CUB.
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Partner code according to cube classification
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SkuList">
+        <xs:sequence>
+            <xs:element name="Sku" type="tns:Sku" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Sku
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Sku
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="scenario" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="SkuLocalName">
+        <xs:sequence>
+            <xs:element name="Name" type="tns:Notes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Name
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="FullName" type="tns:Notes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Полное название
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Full name
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ShortName" type="tns:Notes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Краткое название
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Short name
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SkuSourceName">
+        <xs:complexContent>
+            <xs:extension base="tns:SkuLocalName">
+                <xs:sequence>
+                    <xs:element name="LanguageCode" type="tns:LanguageCode">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">
+                                Код языка согласно ISO 639-1
+                            </xs:documentation>
+                            <xs:documentation xml:lang="en">
+                                The language code according to ISO 639-1
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NodeId" type="tns:InstanceIdentifier">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">
+                                Код узла, в котором используется наименование, согласно классификации CUB
+                            </xs:documentation>
+                            <xs:documentation xml:lang="en">
+                                Node ID, which uses the name according of classification СUB
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="SkuLocalizedName">
+        <xs:complexContent>
+            <xs:extension base="tns:SkuLocalName">
+                <xs:sequence>
+                    <xs:element name="CountryCode" type="tns:CountryCode">
+                        <xs:annotation>
+                            <xs:documentation xml:lang="ru">
+                                Код страны alpha-2 согласно ISO 3166-1.
+                            </xs:documentation>
+                            <xs:documentation xml:lang="en">
+                                Country code (alpha-2 according ISO 3166-1)
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SkuNationalId">
+        <xs:sequence>
+            <xs:element name="Id" type="tns:InstanceIdentifier">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CountryCode" type="tns:CountryCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код страны alpha-2 согласно ISO 3166-1.
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Country code (alpha-2 according ISO 3166-1)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TradeItem">
+        <xs:sequence>
+            <xs:element name="TradeItemIdentifier" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор упаковки SKU - штрихкод. Может быть не заполнен только для таких упаковок, как ряд и паллета, либо при выгрузке SKU на этапе планирования.
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Barcode. It can be omitted only for such packages as a layer and a pallet, or for SKU at the planning stage.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="PackageTypeCode">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Код типа упаковки (штука, блок, ящик, ряд, паллета)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Package type code (KG,PCS,UNIT,BOX,LAYER,PALLET)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="KG"/>
+                        <xs:enumeration value="PCS"/>
+                        <xs:enumeration value="UNIT"/>
+                        <xs:enumeration value="BOX"/>
+                        <xs:enumeration value="LAYER"/>
+                        <xs:enumeration value="PALLET"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="QuantityOfSkuBaseUnits" type="tns:Quantity">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Количество базовых единиц SKU в данной упаковке.
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Quantity of BASE units (KG/PCS) in current package
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="TradeItemWeightAndDimension" type="tns:TradeItemWeightAndDimension">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Вес и размеры упаковки
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Weight and dimensions of package
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TradeItemWeightAndDimension">
+        <xs:sequence>
+            <xs:element name="GrossWeight" type="tns:Weight" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Вес брутто в килограммах
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Gross weight in kilograms
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="NetWeight" type="tns:Weight">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Вес нетто в килограммах (тот вес который указан на упаковке)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Net weight in kilograms (as indicated on the package)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Width" minOccurs="0" type="tns:Dimension">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Ширина упаковки в сантиметрах
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Width of the package in centimeters
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Height" minOccurs="0" type="tns:Dimension">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Высота упаковки в сантиметрах
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Height of the package in centimeters
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Depth" minOccurs="0" type="tns:Dimension">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Глубина упаковки в сантиметрах
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Depth of the package in centimeters
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TradeItems">
+        <xs:sequence>
+            <xs:element name="TradeItem" type="tns:TradeItem" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Упаковка
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Package
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="OwnGoodsInStockList">
+    <xs:sequence>
+    <xs:element name="OwnGoodsInStock" type="tns:OwnGoodsInStock" maxOccurs="unbounded">
+        <xs:annotation>
+            <xs:documentation xml:lang="ru">
+                Остатки товаров
+            </xs:documentation>
+            <xs:documentation xml:lang="en">
+                Goods in stock
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="OwnGoodsInStock">
+        <xs:sequence>
+            <xs:element name="CompanyGLN" type="tns:GLN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор компании
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Company identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="CompanyName" type="tns:Notes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название компании
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Company name
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="WarehouseGLN" type="tns:GLN">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор склада
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Warehouse identifier
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="WarehouseName" type="tns:Notes">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Название склада
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Warehouse name
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Date" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Дата остатков
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Date of stock
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="SKUList" type="tns:OwnGoodsInStockSKUList">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Список SKU
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU list
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OwnGoodsInStockSKUList">
+        <xs:sequence>
+            <xs:element name="SKU" type="tns:OwnGoodsInStockSKUItem" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        SKU
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OwnGoodsInStockSKUItem">
+        <xs:sequence>
+            <xs:element name="SkuSourceIdentifier" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Идентификатор SKU согласно настройки КУБ (Маркетинговый код, штрихкод ящика, код источника)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        SKU identifier according to CUB setting (Marketing code, barcode of the box, source code)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Quantity" type="tns:Quantity">
+                <xs:annotation>
+                    <xs:documentation xml:lang="ru">
+                        Количество товара в БАЗОВОЙ единице измерения (КГ/ШТ)
+                    </xs:documentation>
+                    <xs:documentation xml:lang="en">
+                        Quantity of BASE units (KG/PCS)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:simpleType name="Notes">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="200"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CountryCode">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="2"/>
+            <xs:maxLength value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LanguageCode">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="2"/>
+            <xs:maxLength value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CurrencyCode">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="3"/>
+            <xs:maxLength value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="GLN">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="DocumentNumber">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="35"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="InstanceIdentifier">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+     <xs:simpleType name = "Expiration">
+         <xs:restriction base="xs:int">
+             <xs:totalDigits value="4"/>
+         </xs:restriction>
+     </xs:simpleType>
+
+    <xs:simpleType name="LineNumber">
+        <xs:restriction base="xs:decimal">
+            <xs:fractionDigits value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Quantity">
+        <xs:restriction base="xs:decimal">
+            <xs:fractionDigits value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Amount">
+        <xs:restriction base="xs:decimal">
+            <xs:fractionDigits value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Dimension">
+        <xs:restriction base="xs:decimal">
+            <xs:fractionDigits value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Weight">
+        <xs:restriction base="xs:decimal">
+            <xs:fractionDigits value="6"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DocumentStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="POSTED"/>
+            <xs:enumeration value="CANCELED"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="GoodsDocumentType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SALE"/>
+            <xs:enumeration value="RETURN"/>
+            <xs:enumeration value="CORRECTION"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

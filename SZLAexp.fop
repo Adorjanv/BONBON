@@ -1,0 +1,119 @@
+..!interpreter english translate declaration noabbrev
+..*****************************************************************************
+.. Name           : ./ow1/UADAT.SKUL.EXP.FOP
+.. Date           : 2017.04.19
+.. Version        : 1.0
+.. Author         : 
+.. Copyright      :
+.. Functionality  : Adatokat gyűjt össze az expohoz.
+..
+.. Interface (arguments and their meaning)
+..    uses array argument (arg.i)           : no
+..    uses name argument  (xpname=value)    : no
+..
+..    Argument     meaning
+..    -------------------------------------------------------------------------
+..
+.. Program flow :
+...Includes :
+..********************************************************************
+..: Declaration:
+..
+.type text xcikke xsel xcikksz xINfile xOUTfile xWfile xtmcode x2 x3 xsys2
+.type R12.1 xcepw
+.type R12.3 xcenw xcenpp
+.type text xmessid
+.type r9.2 xbnum
+..********************************************************************
+Cikktörzs exportálása
+..
+.formula t|xcikke  = "rmtmp/XDE.SZLAW."   +'T|pid'+".TMP"
+.formula T|xWfile="tmp/XDE.SZAMLAK.LST"
+..
+..
+.. .. Rövidszöveges változó, mint számláló
+.set cancel-
+.select Company lock "XMLSD"
+.continue HIBARSZ                ? _mehr 
+.formula xbnum =H|tpausch
+.formula xmessid="00000"+'xbnum:0'
+.formula xmessid=xmessid>>5
+.formula xmessid="PL"+xmessid
+.formula H|tpausch=H|tpausch+1
+.rewrite
+.set cancel+
+..
+.formula T|xOUTfile="/home1/s3/eks/win/CUB/MSL_"+'xmessid'+".XML"
+..
+..
+.input DATEI.F
+..
+.output new 't|xcikke'
+.output
+..
+!XMLFEJ
+.output addedto 't|xcikke'
+..<?xml version="1.0" encoding="WINDOWS-1251"?>
+<?xml version="1.0" encoding="UTF8"?>
+<ExchangeMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.roshen.ua/edi/roshen4">
+<Header>
+	<ProtocolVersion>1.20</ProtocolVersion>
+	<Sender>EHU01</Sender>
+	<Receiver>CUB</Receiver>
+	<MessageId>'xmessid'</MessageId>
+	<ReplyToMessageId>0</ReplyToMessageId>
+</Header>
+.output
+!LSTUJT
+.select from 'T|xWfile' xcikksz 
+.continue LISTVEGE   ? _mehr
+..
+...set debug+
+.formula t|xsel = "$,,nummer="+'xcikksz'+";such=;@group=24"
+.load 1 Sales 't|xsel'
+.continue LSTUJT   ? _mehr
+.continue NINCSMKOD   ? '1|ykonsz'=""
+.output addedto 't|xcikke'
+<GoodsSales>
+		<Sale>
+			<DocumentDate>'1|vom'</DocumentDate>
+			<DocumentNumber>'1|nummer'</DocumentNumber>
+ 			<DocumentStatusCode>POSTED</DocumentStatusCode>
+..			<DocumentStatusCode>CANCELED</DocumentStatusCode>
+.formula xtiid=('1|vom'<<4)+'1|nummer'
+			<InstanceIdentifier>'xtiid'</InstanceIdentifier>
+			<DocumentCurrencyCode>'1|land'</DocumentCurrencyCode>
+			<Contract>
+				<ContractDate>1900-01-01</ContractDate>
+				<ContractNumber>999999999</ContractNumber>
+			</Contract>
+	
+
+.output
+.continue LSTUJT
+!LISTVEGE		
+.output addedto 't|xcikke'
+</SkuList>	
+</ExchangeMessage>
+.output
+.editing 't|xcikke'
+..
+..
+.output
+.formula T|xsys2 = "cp "+'t|xcikke'+" "+'T|xOUTfile'
+.sys 'T|xsys2' background
+?Nem sikerült átmásolni 't|xcikke'->'T|xOUTfile' ? _T|mehr
+?Adatok továbbítva a ROSHEN számára 'T|xOUTfile' ? T|mehr
+..
+.continue END
+!NINCSMKOD
+Nincs marketing kódja '1|nummer' 
+.continue LSTUJT
+..-------------------------------------- END 
+!END: program vege
+Vége
+.fo xsys2 = "sleep 4"
+.sys 'xsys2' background
+
+.continue
+..

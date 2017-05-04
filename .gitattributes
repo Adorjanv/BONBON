@@ -15,3 +15,8 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+*.FO	 diff=astextplain
+*.FOP	 diff=astextplain
+*.XML	 diff=astextplain
+*.xml	 diff=astextplain
+

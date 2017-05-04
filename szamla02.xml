@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF8"?>
+<ExchangeMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.roshen.ua/edi/roshen4">
+<Header>
+	<ProtocolVersion>1.20</ProtocolVersion>
+	<Sender>EHU01</Sender>
+	<Receiver>CUB</Receiver>
+	<MessageId>SB00026</MessageId>
+	<ReplyToMessageId>0</ReplyToMessageId>
+</Header>
+<GoodsSales>
+		 <Sale>
+			<DocumentDate>2017-04-26</DocumentDate>
+			<DocumentNumber>501361</DocumentNumber>
+ 			<DocumentStatusCode>POSTED</DocumentStatusCode>
+			<InstanceIdentifier>2017501361</InstanceIdentifier>
+			<DocumentCurrencyCode>HUF</DocumentCurrencyCode>
+			<Contract>
+				<ContractDate>1900-01-01</ContractDate>
+				<ContractNumber>999999999</ContractNumber>
+			</Contract>
+			<SellerInfo>
+				<SellerCountryCode>HU</SellerCountryCode>
+				<SellerGLN>5990660175000</SellerGLN>
+				<SellerName>Bonbonetti Kft.</SellerName>
+				<SellerWarehouseGLN>5990660175000</SellerWarehouseGLN>
+				<SellerWarehouseName>Nagel Hungaria Kft</SellerWarehouseName>
+			</SellerInfo>
+			<BuyerInfo>
+				<BuyerCountryCode>HU</BuyerCountryCode>
+				<BuyerGLN>34605</BuyerGLN>
+				<BuyerName>Ozirisz Vendéglátó Kft.</BuyerName>
+				<BuyerWarehouseGLN>34605</BuyerWarehouseGLN>
+				<BuyerWarehouseName>Ozirisz Vendéglátó Kft.</BuyerWarehouseName>
+			</BuyerInfo>
+			<ShipFromInfo>
+				<ShippingDate>2017-04-26</ShippingDate>
+			</ShipFromInfo>
+			<ShipToInfo>
+				<DeliveryDate>2017-04-26</DeliveryDate>
+			</ShipToInfo>
+			<SKUList>
+			</SKUList>
+		 </Sale>
+		 <Sale>
+			<DocumentDate>2017-04-28</DocumentDate>
+			<DocumentNumber>501362</DocumentNumber>
+ 			<DocumentStatusCode>POSTED</DocumentStatusCode>
+			<InstanceIdentifier>2017501362</InstanceIdentifier>
+			<DocumentCurrencyCode>EUR</DocumentCurrencyCode>
+			<Contract>
+				<ContractDate>1900-01-01</ContractDate>
+				<ContractNumber>999999999</ContractNumber>
+			</Contract>
+			<SellerInfo>
+				<SellerCountryCode>HU</SellerCountryCode>
+				<SellerGLN>5990660175000</SellerGLN>
+				<SellerName>Bonbonetti Kft.</SellerName>
+				<SellerWarehouseGLN>5990660175000</SellerWarehouseGLN>
+				<SellerWarehouseName>Nagel Hungaria Kft</SellerWarehouseName>
+			</SellerInfo>
+			<BuyerInfo>
+				<BuyerCountryCode>NL</BuyerCountryCode>
+				<BuyerGLN>33802</BuyerGLN>
+				<BuyerName>Les Chevaliers B.V.</BuyerName>
+				<BuyerWarehouseGLN>33802</BuyerWarehouseGLN>
+				<BuyerWarehouseName>Les Chevaliers B.V.</BuyerWarehouseName>
+			</BuyerInfo>
+			<ShipFromInfo>
+				<ShippingDate>2017-04-28</ShippingDate>
+			</ShipFromInfo>
+			<ShipToInfo>
+				<DeliveryDate>2017-04-28</DeliveryDate>
+			</ShipToInfo>
+			<SKUList>
+				 <SaleSkuItem>
+					<SkuSourceIdentifier>9200000047</SkuSourceIdentifier>
+					<Quantity>112.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>1330.56</TotalSkuAmountBeforeTaxes>
+				 </SaleSkuItem>
+				 <SaleSkuItem>
+					<SkuSourceIdentifier>9200000047</SkuSourceIdentifier>
+					<Quantity>896.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>10644.48</TotalSkuAmountBeforeTaxes>
+				 </SaleSkuItem>
+				 <SaleSkuItem>
+					<SkuSourceIdentifier>9200000047</SkuSourceIdentifier>
+					<Quantity>224.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>2661.12</TotalSkuAmountBeforeTaxes>
+				 </SaleSkuItem>
+				 <SaleSkuItem>
+					<SkuSourceIdentifier>9200000047</SkuSourceIdentifier>
+					<Quantity>224.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>2661.12</TotalSkuAmountBeforeTaxes>
+				 </SaleSkuItem>
+				 <SaleSkuItem>
+					<SkuSourceIdentifier>9200000047</SkuSourceIdentifier>
+					<Quantity>448.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>5322.24</TotalSkuAmountBeforeTaxes>
+				 </SaleSkuItem>
+				 <SaleSkuItem>
+					<SkuSourceIdentifier>9200000053</SkuSourceIdentifier>
+					<Quantity>1008.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>11975.04</TotalSkuAmountBeforeTaxes>
+				 </SaleSkuItem>
+				 <SaleSkuItem>
+					<SkuSourceIdentifier>9200000053</SkuSourceIdentifier>
+					<Quantity>784.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>9313.92</TotalSkuAmountBeforeTaxes>
+				 </SaleSkuItem>
+			</SKUList>
+		 </Sale>
+		 <Sale>
+			<DocumentDate>2017-04-28</DocumentDate>
+			<DocumentNumber>501363</DocumentNumber>
+ 			<DocumentStatusCode>POSTED</DocumentStatusCode>
+			<InstanceIdentifier>2017501363</InstanceIdentifier>
+			<DocumentCurrencyCode>EUR</DocumentCurrencyCode>
+			<Contract>
+				<ContractDate>1900-01-01</ContractDate>
+				<ContractNumber>999999999</ContractNumber>
+			</Contract>
+			<SellerInfo>
+				<SellerCountryCode>HU</SellerCountryCode>
+				<SellerGLN>5990660175000</SellerGLN>
+				<SellerName>Bonbonetti Kft.</SellerName>
+				<SellerWarehouseGLN>5990660175000</SellerWarehouseGLN>
+				<SellerWarehouseName>Nagel Hungaria Kft</SellerWarehouseName>
+			</SellerInfo>
+			<BuyerInfo>
+				<BuyerCountryCode>BR</BuyerCountryCode>
+				<BuyerGLN>34421</BuyerGLN>
+				<BuyerName>Hungária Mercantil Importacao,  Exportacao e Comercio Ltda.</BuyerName>
+				<BuyerWarehouseGLN>34421</BuyerWarehouseGLN>
+				<BuyerWarehouseName>Hungária Mercantil Importacao,  Exportacao e Comercio Ltda.</BuyerWarehouseName>
+			</BuyerInfo>
+			<ShipFromInfo>
+				<ShippingDate>2017-04-28</ShippingDate>
+			</ShipFromInfo>
+			<ShipToInfo>
+				<DeliveryDate>2017-04-28</DeliveryDate>
+			</ShipToInfo>
+			<SKUList>
+				 <SaleSkuItem>
+					<SkuSourceIdentifier>1000900305</SkuSourceIdentifier>
+					<Quantity>54.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>1283.04</TotalSkuAmountBeforeTaxes>
+				 </SaleSkuItem>
+				 <SaleSkuItem>
+					<SkuSourceIdentifier>1000900310</SkuSourceIdentifier>
+					<Quantity>99.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>951.59</TotalSkuAmountBeforeTaxes>
+				 </SaleSkuItem>
+			</SKUList>
+		 </Sale>
+</GoodsSales>
+<GoodsReturns>
+		 <Return>
+			<DocumentDate>2017-04-27</DocumentDate>
+			<DocumentNumber>501364</DocumentNumber>
+ 			<DocumentStatusCode>POSTED</DocumentStatusCode>
+			<InstanceIdentifier>2017501364</InstanceIdentifier>
+			<DocumentCurrencyCode>HUF</DocumentCurrencyCode>
+			<Contract>
+				<ContractDate>1900-01-01</ContractDate>
+				<ContractNumber>999999999</ContractNumber>
+			</Contract>
+			<SellerInfo>
+				<SellerCountryCode>HU</SellerCountryCode>
+				<SellerGLN>5990660175000</SellerGLN>
+				<SellerName>Bonbonetti Kft.</SellerName>
+				<SellerWarehouseGLN>5990660175000</SellerWarehouseGLN>
+				<SellerWarehouseName>Nagel Hungaria Kft</SellerWarehouseName>
+			</SellerInfo>
+			<BuyerInfo>
+				<BuyerCountryCode>HU</BuyerCountryCode>
+				<BuyerGLN>32832.60</BuyerGLN>
+				<BuyerName>Spar Üllői logisztikai központ</BuyerName>
+				<BuyerWarehouseGLN>32832.60</BuyerWarehouseGLN>
+				<BuyerWarehouseName>Spar Üllői logisztikai központ</BuyerWarehouseName>
+			</BuyerInfo>
+			<ShipFromInfo>
+				<ShippingDate>2017-04-27</ShippingDate>
+			</ShipFromInfo>
+			<ShipToInfo>
+				<DeliveryDate>2017-04-27</DeliveryDate>
+			</ShipToInfo>
+			<SKUList>
+				 <SkuItem>
+					<SkuSourceIdentifier>0505160270</SkuSourceIdentifier>
+					<Quantity>-96.00</Quantity>
+					<TotalSkuAmountBeforeTaxes>-354816.00</TotalSkuAmountBeforeTaxes>
+				 </SkuItem>
+			</SKUList>
+		 </Return>
+</GoodsReturns>
+</ExchangeMessage>
+

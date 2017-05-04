@@ -1,0 +1,39 @@
+..F.I. 2016.12.20
+..      .edi 'xfile2'
+.type text x1old x3old
+.type bool xmehr xelso xegyforma
+.type R13.2 xtemp x3sm
+.formula xelso = TRUE
+..
+.formula xsys2 = "sort -t# +0 -1 -o" + xfile2 + " " + xfile2 
+.system 'xsys2' backgrond
+..
+!NEXTLINE
+.select from 'xfile2' x1 # x2 # x3 
+.formula xmehr = Gmehr
+.contine READERROR                     ? _xmehr & xelso
+.contine KIIR                          ? _xmehr & _xelso
+.formula x1old = 'x1'               ? xelso
+.formula xelso = FALSE
+..
+.formula xegyforma = TRUE   ? 'x1' = 'x1old' 
+.formula xegyforma = FALSE  ? 'x1' <> 'x1old'
+.contine KIIR                          ? _xegyforma
+!VISSZA
+..
+.formula x1old = 'x1'
+.formula x3sm = xtemp              ? _xegyforma
+.formula x3sm = x3sm + xtemp       ? xegyforma
+..
+.contine NEXTLINE
+..
+!KIIR
+'x1old'#'x3sm'
+..
+.contine END           ? _xmehr
+.contine VISSZA
+
+!READERROR
+..HA AZ ÜRES FÁJLT KÜLÖN LE KELL KEZELNI AKKOR AZT ITT LEHET MEGCSINÁLNI
+.contine END
+..--------------------
